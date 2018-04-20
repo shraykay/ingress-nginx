@@ -391,6 +391,10 @@ func (n *NGINXController) getBackendServers(ingresses []*extensions.Ingress) ([]
 				server.AuthTLSError = anns.CertificateAuth.AuthTLSError
 			}
 
+			if anns.UseHTTP2 == true {
+				server.UseHTTP2 = true
+			}
+
 			if server.CertificateAuth.CAFileName == "" {
 				server.CertificateAuth = anns.CertificateAuth
 				// It is possible that no CAFileName is found in the secret
