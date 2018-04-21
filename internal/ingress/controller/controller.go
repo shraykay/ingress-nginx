@@ -955,6 +955,7 @@ func (n *NGINXController) createServers(data []*extensions.Ingress,
 				},
 				SSLPassthrough: anns.SSLPassthrough,
 				SSLCiphers:     anns.SSLCiphers,
+				UseHTTP2:       anns.UseHTTP2,
 			}
 		}
 	}
@@ -999,6 +1000,10 @@ func (n *NGINXController) createServers(data []*extensions.Ingress,
 			// only add ssl ciphers if the server does not have one previously configured
 			if servers[host].SSLCiphers == "" && anns.SSLCiphers != "" {
 				servers[host].SSLCiphers = anns.SSLCiphers
+			}
+
+			if anns.UseHTTP2 == true {
+				servers[host].UseHTTP2 = anns.UseHTTP2
 			}
 
 			// only add a certificate if the server does not have one previously configured
